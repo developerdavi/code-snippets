@@ -1,7 +1,7 @@
 export function ReadableDate(ISODate, options = { offset: { years: 0, months: 0, days: 0 }, showHours: true }) {
 
-  // Edit this for custom time zone
-  const TIME_ZONE = 0
+  // Edit this for custom time zone or just a offset
+  const OFFSET = 0
 
   ISODate = new Date(ISODate)
 
@@ -17,13 +17,13 @@ export function ReadableDate(ISODate, options = { offset: { years: 0, months: 0,
   }
 
   // Changes the time zone
-  ISODate.setHours(ISODate.getHours() + TIME_ZONE)
+  ISODate.setHours(ISODate.getHours() + OFFSET)
 
-  const day = ISODate.getDate()
-  const month = ISODate.getMonth() + 1
+  const day = ISODate.getDate() < 10 ? '0' + ISODate.getDate() : ISODate.getDate()
+  const month = (ISODate.getMonth() + 1) < 10 ? '0' + (ISODate.getMonth() + 1) : ISODate.getMonth() + 1
   const year = ISODate.getFullYear()
-  const hour = ISODate.getHours()
-  const minutes = ISODate.getMinutes()
+  const hour = ISODate.getHours() < 10 ? '0' + ISODate.getHours() : ISODate.getHours()
+  const minutes = ISODate.getMinutes() < 10 ? '0' + ISODate.getMinutes() : ISODate.getMinutes()
 
   return `${day}/${month}/${year} ${options.showHours ? `às ${hour}h${minutes}min` : ''}`
 }
